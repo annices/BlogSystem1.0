@@ -1,0 +1,97 @@
+﻿@model Bloggsystem.Models.Entry
+
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.entry = "entry";
+}
+
+<h2>Hantera blogginlägg</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <fieldset>
+        <legend>Redigera inlägg</legend>
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.entryID)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.title, "Rubrik: *", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.title, new { htmlAttributes = new { maxlength="50", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.date, "Datum: *", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.date, new { htmlAttributes = new { maxlength = "50", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Category.category1, "Kategori: *", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("categoryID", null, htmlAttributes: new { @id = "Category_category1", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Category.category1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @Html.LabelFor(model => model.User.username, "Skribent: *", htmlAttributes: new { @class = "control-label col-md-2 hidden" })
+            @Html.DropDownList("userID", null, htmlAttributes: new { @id = "userID", @class = "form-control hidden" })
+            @Html.ValidationMessageFor(model => model.userID, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.keywords, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.keywords, new { htmlAttributes = new { maxlength = "200", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.keywords, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { maxlength = "300", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.entry1, "Inlägg: *", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.entry1, new { @id = "entry1" })
+                    @Html.ValidationMessageFor(model => model.entry1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Uppdatera" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+
+}
+
+<hr>
+
+<div>
+    @Html.ActionLink("Tillbaka till blogginläggen", "Index")
+</div>
+
+<hr>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,25 @@
+﻿@model Bloggsystem.Models.Comment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Hantera kommentarer</h2>
+
+
+<div>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <fieldset>
+            <legend>Är du säker på att du vill radera kommentaren?</legend>
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Radera" class="btn btn-default" /> |
+                @Html.ActionLink("Tillbaka till kommentarslistan", "Index")
+            </div>
+
+        </fieldset>
+    }
+</div>

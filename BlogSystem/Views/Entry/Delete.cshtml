@@ -1,0 +1,26 @@
+﻿@model Bloggsystem.Models.Entry
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Hantera blogginlägg</h2>
+
+
+<div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <fieldset>
+            <legend>Är du säker på att du vill radera inlägget?</legend>
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Radera" class="btn btn-default" /> |
+                @Html.ActionLink("Tillbaka till blogginläggen", "Index")
+            </div>
+
+        </fieldset>
+    }
+</div>

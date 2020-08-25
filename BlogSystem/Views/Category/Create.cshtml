@@ -1,0 +1,43 @@
+﻿@model Bloggsystem.Models.Category
+
+<h2>Hantera kategorier</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <p>
+        <span class="error_msg">@ViewBag.Msg</span>
+    </p>
+
+        <fieldset>
+            <legend>Skapa ny kategori</legend>
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.category1, "Kategori: *", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.category1, new { htmlAttributes = new { maxlength = "50", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.category1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Skapa" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+}
+
+<hr>
+
+<div>
+    @Html.ActionLink("Tillbaka till kategorierna", "Index")
+</div>
+
+<hr>

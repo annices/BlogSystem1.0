@@ -1,0 +1,58 @@
+﻿@model Bloggsystem.Models.Entry
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Hantera blogginlägg > Detaljer</h2>
+
+<div>
+    <h3>Rubrik: @Html.DisplayFor(model => model.title)</h3>
+
+    <p>
+        <b>@Html.DisplayNameFor(model => model.User.username)</b>
+
+        @Html.DisplayFor(model => model.User.username) |
+
+        <b>@Html.DisplayNameFor(model => model.date)</b>
+
+        @Html.DisplayFor(model => model.date) |
+
+        <b>@Html.DisplayNameFor(model => model.Category.category1)</b>
+
+        @Html.DisplayFor(model => model.Category.category1)
+    </p>
+
+
+    @Html.DisplayFor(model => model.entry1)
+
+</div>
+
+<hr>
+
+<h3>Kommentarer</h3>
+
+@foreach (var item in ViewBag.comments)
+{
+    if (item.name != null)
+    {
+        <b>Av:</b> <a href="mailto:@item.mail">@item.name</a> <text>|</text>
+    }
+    else
+    {
+        <b>E-post:</b> <a href="mailto:@item.mail">@item.mail</a> <text>|</text>
+    }
+    if (item.website != null)
+    {
+        <b><text>Webbadress:</text></b> @item.website <text>|</text>
+    }
+    <b>Datum:</b> @item.date <br>
+    <p>@item.comment1</p>
+
+    <hr>
+}
+
+
+<p>
+    @Html.ActionLink("Tillbaka till blogginläggen", "Index")
+</p>

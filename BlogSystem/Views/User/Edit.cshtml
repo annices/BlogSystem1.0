@@ -1,0 +1,79 @@
+﻿@model Bloggsystem.Models.User
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Redigera användaruppgifter</h2>
+
+
+<p>
+    <span class="success_msg">@ViewBag.successmsg</span>
+    <span class="error_msg">@ViewBag.errormsg</span>
+</p>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Redigera användaruppgifter</legend>
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.userID)
+            @Html.HiddenFor(model => model.password)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.username, "Användarnamn: *", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.username, new { htmlAttributes = new { maxlength = "30", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.firstname, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.firstname, new { htmlAttributes = new { maxlength = "30", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.firstname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.lastname, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.lastname, new { htmlAttributes = new { maxlength = "30", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.mail, "Mejladress: *", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.mail, new { htmlAttributes = new { maxlength = "50", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.mail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" name="edituser" value="Uppdatera" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+
+}
+
+@Html.Partial("_UpdatePassword", Model)
+
+<hr>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

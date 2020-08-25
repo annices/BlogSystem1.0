@@ -1,0 +1,87 @@
+﻿@model Bloggsystem.Models.Comment
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Hantera kommentarer</h2>
+
+<p>
+    <span class="error_msg">@ViewBag.errormsg</span>
+</p>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Svara på kommentar (blogginläggs-ID: @Html.DisplayFor(model => model.entryID))</legend>
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="editor-field">
+                @Html.HiddenFor(model => model.commentID)
+                @Html.HiddenFor(model => model.entryID)
+                @Html.HiddenFor(model => model.name)
+                @Html.HiddenFor(model => model.mail)
+                @Html.HiddenFor(model => model.date)
+                @Html.HiddenFor(model => model.comment1)
+            </div>
+
+            @if (!String.IsNullOrEmpty(@Model.name))
+            {
+                @Html.LabelFor(model => model.name)<text></text>
+                @Html.DisplayFor(model => model.name)<br>
+                @Html.LabelFor(model => model.mail)<text></text>
+                @Html.DisplayFor(model => model.mail)<br>
+            }
+            else
+            {
+                @Html.LabelFor(model => model.mail)
+                @Html.DisplayFor(model => model.mail)<br>
+            }
+
+            @Html.LabelFor(model => model.date)
+            @Html.DisplayFor(model => model.date)<br>
+            @Html.LabelFor(model => model.comment1)
+            @Html.DisplayFor(model => model.comment1)
+
+            <hr>
+
+            <p style="margin-bottom: 30px">
+            Obs! Svaret skrivs som standard ut i kursiv och fet text. Övrig redigering är dock möjlig med HTML-taggar.<br>
+            Exempel på HTML-taggar som kan anges i svarsfältet:
+            <span style="font: 13px courier new">&lt;span style="color:red"&gt;Svarstext&lt;/span&gt;</span>
+            </p>
+
+            <div class="form-group" style="float:left">
+                @Html.LabelFor(model => model.answer, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.answer, new { htmlAttributes = new { maxlength = "50", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.answer, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-offset-2 col-md-10" style="margin-top: 5px">
+                    <input type="submit" value="Uppdatera" class="btn btn-default">
+                </div>
+            </div>
+
+        </div>
+
+    </fieldset>
+
+}
+
+<hr>
+
+<div>
+    @Html.ActionLink("Tillbaka till kommentarslistan", "Index")
+</div>
+
+<hr>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

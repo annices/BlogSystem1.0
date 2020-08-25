@@ -1,0 +1,91 @@
+﻿/* 
+    Created: 2016
+    Author: Annice Strömberg
+*/
+
+body {
+    font: 12pt 'Trebuchet', arial, sans-serif;
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges. */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100 % wide by default. */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Customize hr-tag. */
+hr {
+   background: #aaa;
+   height: 1px;
+}
+
+/* Override Bootstrap settings for table properties. */
+.table table, th, tr, td {
+    border-bottom: 1px solid #aaa;
+    border-top: 1px solid #aaa !important;
+}
+
+#searchfield {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Div properties for navbuttons. */
+#navdiv {
+    position: relative;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+
+/* Underline used in some divs. */
+.underline {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #aaa !important;
+}
+
+/* To hide fields carrying ID:s in forms. */
+.hidden {
+    display: none;
+}
+
+/* Style feedback success message. */
+.success_msg {
+    font: 12pt 'Trebuchet', arial, sans-serif;
+    font-weight: bold;
+    color: #458B00;
+}
+
+/* Style feedback error message. */
+.error_msg {
+    font: 12pt 'Trebuchet', arial, sans-serif;
+    font-weight: bold;
+    color: #bf0202;
+}
+
+/* Style comment answer. */
+.answer {
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* Style footer text. */
+#footertext {
+    font: 11px 'Trebuchet', arial, sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Style legend tag. */
+legend {
+    border-bottom: 1px solid #aaa;
+}

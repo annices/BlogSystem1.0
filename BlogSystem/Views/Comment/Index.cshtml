@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Bloggsystem.Models.Comment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Hantera kommentarer</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.website)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comment1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Entry.entryID)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (item.name != null)
+                {
+                    <a href="mailt:@item.mail" title="@item.mail">@item.name</a>
+                }
+                else
+                {
+                    <a href="mailt:@item.mail">@item.mail</a>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @if (!String.IsNullOrEmpty(item.website))
+                {
+                    <a href="@item.website" target="_blank" title="@item.website">www</a>
+                }
+                else
+                {
+                    <text>-</text>
+                }
+            </td>
+            <td>
+                @{
+                    string comment = new Bloggsystem.Models.BL().clearHtmlAndCutString(@item.comment1);
+                    @comment
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Entry.entryID)
+            </td>
+            <td>
+                @Html.ActionLink("Svara", "Edit", new { id = item.commentID }) |
+                @Html.ActionLink("Radera", "Delete", new { id = item.commentID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.Partial("_NavPage", Model)

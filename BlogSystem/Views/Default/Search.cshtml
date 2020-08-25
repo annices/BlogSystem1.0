@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Bloggsystem.Models.Entry>
+
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Sök blogginlägg</h2>
+
+<p style="margin-bottom: 30px">Sök och filtrera fram blogginlägg på rubrik, inläggsinnehåll eller kategori genom
+    att ange önskade sökord i formulärsfältet nedan.</p>
+
+@try
+{
+
+    <div id="searchfield">
+
+        @using (Html.BeginForm())
+        {
+            <div class="input-group" style="max-width: 300px">
+
+                @Html.TextBox("searchstring", null, new { placeholder = "Ange sökord.", @class = "form-control" })
+
+                <div class="input-group-btn">
+                    <input type="submit" value="Sök" class="btn btn-default">
+                </div>
+            </div>
+        }
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Inläggsrubrik:", "Search", new { sortorder = ViewBag.sorttitle, currentfilter = ViewBag.currentfilter })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.entry1)
+            </th>
+            <th>
+                @Html.ActionLink("Kategori:", "Search", new { sortorder = ViewBag.sortcategory, currentfilter = ViewBag.currentfilter })
+            </th>
+            <th>
+                @Html.ActionLink("Datum:", "Search", new { sortorder = ViewBag.sortdate, currentfilter = ViewBag.currentfilter })
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.title, "EntryComments", new { id = item.entryID }, null)
+                </td>
+                <td>
+                    @{
+                        string comment = new Bloggsystem.Models.BL().clearHtmlAndCutString(item.entry1);
+                        @comment
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.category1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    @Html.Partial("_NavPage", Model)
+
+}
+catch (NullReferenceException)
+{
+    <text>Det finns för tillfället inga inlägg.</text>
+}

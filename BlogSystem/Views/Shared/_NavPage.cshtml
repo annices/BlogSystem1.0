@@ -1,0 +1,36 @@
+﻿
+@if (!((ViewBag.page == 0) && (ViewBag.page == ViewBag.maxpage)))
+{
+
+    <div id="navdiv">
+        @if (ViewBag.page == 0)
+        {
+            <button type="button" class="btn btn-default" disabled>&laquo;</button>
+            <button type="button" class="btn btn-default" disabled>Förra</button>
+        }
+        else
+        {
+            <a href="@Url.Action(ViewBag.Title, new { page = 0 })" title="Gå till första sidan." class="btn btn-default">
+                &laquo;
+            </a>
+            <a href="@Url.Action(ViewBag.Title, new { page = ViewBag.page - 1 })" class="btn btn-default">
+                Föregående
+            </a>
+        }
+        @if (ViewBag.page == ViewBag.maxpage)
+        {
+            <button type="button" class="btn btn-default" disabled>Nästa</button>
+            <button type="button" class="btn btn-default" disabled>&raquo;</button>
+        }
+        else
+        {
+            <a href="@Url.Action(ViewBag.Title, new { page = ViewBag.page + 1 })" class="btn btn-default">
+                Nästa
+            </a>
+            <a href="@Url.Action(ViewBag.Title, new { page = ViewBag.maxpage })" title="Gå till sista sidan." class="btn btn-default">
+                &raquo;
+            </a>
+        }
+    </div>
+
+}

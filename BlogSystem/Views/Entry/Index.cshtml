@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Bloggsystem.Models.Entry>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Hantera blogginlägg</h2>
+
+<div id="searchfield">
+    @using (Html.BeginForm())
+    {
+        <div class="input-group" style="max-width: 300px">
+
+            @Html.TextBox("searchstring", null, new { placeholder = "Ange sökord.", @class = "form-control" })
+
+            <div class="input-group-btn">
+                <input type="submit" value="Sök" class="btn btn-default">
+            </div>
+        </div>
+    }
+</div>
+
+<p>
+    @Html.ActionLink("Skapa nytt inlägg", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            <b>ID:</b>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.keywords)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.category1)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.entryID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @if (!String.IsNullOrEmpty(item.keywords) && item.keywords.Length > 20)
+                {
+                    @item.keywords.Substring(0, 20)<text>...</text>
+                }
+                else
+                {
+                    @item.keywords
+                }
+            </td>
+            <td>
+                @if (!String.IsNullOrEmpty(item.description) && item.description.Length > 20)
+                {
+                    @item.description.Substring(0, 20)<text>...</text>
+                }
+                else
+                {
+                    @item.description
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.category1)
+            </td>
+            <td>
+                @Html.ActionLink("Redigera", "Edit", new { id = item.entryID }) |
+                @Html.ActionLink("Detaljer", "Details", new { id = item.entryID }) |
+                @Html.ActionLink("Radera", "Delete", new { id = item.entryID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.Partial("_NavPage", Model)

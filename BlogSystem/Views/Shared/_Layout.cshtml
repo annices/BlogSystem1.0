@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<!--
+This blog script was fetched from http://annice.se and is created by Annice Strömberg, 2016.
+-->
+<html>
+<head>
+    <title>@ViewBag.Title - Ett bloggsystem av Annice Strömberg</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="dc.title" content="@if (ViewBag.entryID != null) { @ViewBag.dctitle } else {<text>Bloggsystem</text>}">
+    <meta name="dc.date" content="@if (ViewBag.entryID != null) { @ViewBag.dcdate } else {<text>@DateTime.Now.Date.ToShortDateString()</text>}">
+    <meta name="dc.subject" content="@if (ViewBag.entryID != null) { @ViewBag.dccategory } else {<text>Bloggsystem</text>}">
+    <meta name="dc.keywords" content="@if (ViewBag.entryID != null) { @ViewBag.dckeywords } else {<text>Bloggsystem</text>}">
+    <meta name="dc.description" content="@if (ViewBag.entryID != null) { @ViewBag.dcdescription } else {<text>Ett bloggsystem i C# med ASP.NET.</text>}">
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    @if (ViewBag.entry != null)
+    {
+        @Html.Partial("_Tinymce")
+    }
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Bloggsystem", "Index", "Default", null, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (ViewBag.user == null)
+                    {
+                        <li>
+                            @Html.ActionLink("Sök inlägg", "Search", "Default")
+                        </li>
+                        <li style="padding-top: 5px">
+                            <form class="navbar-form" method="post" action="~/Default/Login">
+                                <div class="form-group">
+                                    <input type="text" class="simplebox" placeholder="Användare" id="username" name="username" size="15">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="simplebox" placeholder="Lösenord" id="password" name="password" size="15">
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="submit" value="Logga in">
+                                    <span class="error_msg">@TempData["loginfail"]</span>
+                                    @Html.ActionLink("Glömt lösenord?", "SendPassword", "Default")
+                                </div>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink("Hantera blogginlägg", "Index", "Entry")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Hantera kommentarer", "Index", "Comment")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Hantera kategorier", "Index", "Category")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Redigera användaruppgifter", "Edit", "User", new { id = "1" }, null)
+                        </li>
+                        <li>
+                            @Html.ActionLink("Sök inlägg", "Search", "Default")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Logga ut", "Logout", "Default")
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+
+        @RenderBody()
+
+        <footer>
+            <p id="footertext">Ett bloggsystem i C# med ASP.NET och Entity Framework av <a href="http://annice.se" target="_blank">Annice Strömberg</a>, @DateTime.Now.Year.</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

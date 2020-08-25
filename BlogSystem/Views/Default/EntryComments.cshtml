@@ -1,0 +1,78 @@
+﻿@model Bloggsystem.Models.Comment
+
+@{
+    ViewBag.Title = "EntryComments";
+}
+
+
+@foreach (var item in ViewBag.entries)
+{
+
+    <h3>Rubrik: @item.title</h3>
+    <b>Av:</b> @ViewBag.username <text>|</text> <b>Datum:</b> @ViewBag.dcdate <text>|</text> <b>Kategori:</b> @ViewBag.dccategory
+    <p></p>
+
+    @Html.Raw(item.entry1)
+
+}
+
+
+<p style="margin-top: 40px">
+    <span class="success_msg">@ViewBag.successmsg</span>
+    <span class="error_msg">@ViewBag.errormsg</span>
+</p>
+
+
+@Html.Partial("_CreateComment", Model)
+
+<div class="underline">
+    <h3>Kommentarer</h3>
+</div>
+
+@if (ViewBag.existingcomments != 0)
+{
+
+    foreach (var item in ViewBag.comments)
+    {
+
+        if (!String.IsNullOrEmpty(item.name))
+        {
+            <b>Av:</b> <a href="mailto:@item.mail" title="@item.mail">@item.name</a> <text>|</text>
+        }
+        else
+        {
+            <b>Mejladress:</b> <a href="mailto:@item.mail">@item.mail</a> <text>|</text>
+        }
+        if (!String.IsNullOrEmpty(item.website))
+        {
+            <b>Hemsida:</b> <a href="@item.website" target="_blank">@item.website</a> <text>|</text>
+        }
+
+        if (item.date != null)
+        {
+            <b>Datum:</b> @item.date.ToShortDateString() <br>
+        }
+
+        <p>@Html.Raw(item.comment1.Replace("\n", "<br>"))</p>
+
+        if (!String.IsNullOrEmpty(item.answer))
+        {
+            <p><span class="answer">Svar: @Html.Raw(item.answer)</span></p>
+        }
+
+        <hr>
+
+    }
+
+}
+else
+{
+    <p style="padding-bottom: 50px"><em>Det finns för tillfället inga kommentarer till detta inlägg.</em></p>
+}
+
+
+<p>
+    <a href="javascript: window.history.go(-1)">Tillbaka till blogginläggen</a>
+</p>
+
+<hr>

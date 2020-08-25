@@ -1,0 +1,27 @@
+﻿@model Bloggsystem.Models.Category
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Hantera kategorier</h2>
+
+
+<div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <fieldset>
+            <legend>Är du säker på att du vill radera kategorin?</legend>
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Radera" class="btn btn-default" /> |
+                @Html.ActionLink("Tillbaka till kategorilistan", "Index")
+            </div>
+
+        </fieldset>
+
+    }
+</div>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Bloggsystem.Models.Entry>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (ViewBag.user != null)
+{
+    <p style="margin-top: 30px">
+        <b>@Html.ActionLink("Skapa nytt inlägg", "Create", "Entry")</b>
+    </p>
+}
+<table class="table">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <h3>@Html.ActionLink(Html.Raw(item.title).ToHtmlString(), "EntryComments", new { id = item.entryID }, null)</h3>
+
+                <p>
+
+                    <b>Av:</b>
+
+                    @Html.DisplayFor(modelItem => item.User.username) |
+
+                    <b>@Html.DisplayNameFor(model => model.date)</b>
+
+                    @Html.DisplayFor(modelItem => item.date) |
+
+                    <b>@Html.DisplayNameFor(model => model.Category.category1)</b>
+
+                    @Html.DisplayFor(modelItem => item.Category.category1)
+
+                </p>
+
+                @Html.DisplayFor(modelItem => item.entry1)
+
+                <p style="margin-top: 10px">
+                    @Html.ActionLink("Kommentera", "EntryComments", new { id = item.entryID }, null)
+                </p>
+
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+@Html.Partial("_NavPage", Model)
